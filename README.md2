@@ -1,0 +1,48 @@
+Description
+Comprehensive documentation for the beast-trade-exchange repository, outlining its architecture for trustless peer-to-peer commerce, barter exchange mechanics, smart contract escrow, and Google Cloud Run deployment.
+
+Core Code
+Markdown
+# BEAST Trade Exchange (`beast-trade-exchange`)
+
+`beast-trade-exchange` is the decentralized peer-to-peer commerce and barter marketplace under the New World Order Private Government framework. It provides a sovereign alternative to corporate retail monopolies and fiat payment processors, utilizing trustless smart contract listings, direct wallet settlements, and community liquidity pools.
+
+---
+
+## 🏗 Repository Architecture
+
+```text
+beast-trade-exchange/
+├── contracts/               # Solidity smart contracts for marketplace listings
+│   └── TradeExchange.sol    # On-chain escrow, listing, and purchase execution logic
+├── backend/                 # Node.js Express API & PostgreSQL database integration
+│   ├── src/                 # API routes, database connectors, and order handlers
+│   ├── db/                  # SQL schema definitions
+│   └── Dockerfile           # Cloud Run container configuration
+├── frontend/                # Next.js App Router portal for traders and buyers
+├── .github/workflows/       # CI/CD deployment pipeline to Google Cloud Run
+└── README.md                # System documentation
+🚀 Getting Started
+1. Prerequisites
+Node.js (>= 20.0.0)
+
+PostgreSQL / Google Cloud SQL instance
+
+MetaMask or compatible Web3 wallet
+
+2. Run Backend Service
+Bash
+cd backend
+npm install
+npm run dev
+3. Run Frontend Portal
+Bash
+cd frontend
+npm install
+npm run dev
+🛒 Core Principles
+Sovereign Commerce: Eliminates corporate middlemen, payment gateway fees, and arbitrary censorship from online trade.
+
+Trustless Settlement: Direct peer-to-peer escrow ensures funds and goods exchange hands securely without third-party custodians.
+
+Universal Barter & Utility: Supports multi-token pricing and local community exchange standards.
