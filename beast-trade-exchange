@@ -1,0 +1,49 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract TradeExchange {
+    struct Listing {
+        uint256 listingId;
+        address seller;
+        string itemDescription;
+        uint256 price;
+        bool active;
+    }
+
+    mapping(uint256 => Listing) public listings;
+    uint256 public listingCounter;
+
+    event ItemListed(uint256 indexed listingId, address indexed seller, string itemDescription, uint256 price);
+    event ItemPurchased(uint256 indexed listingId, address indexed buyer, address indexed seller, uint256 price);
+
+    function createListing(string calldata _itemDescription, uint256 _price) external {
+        require(_price > 0, "Price must be greater than zero");
+
+        listingCounter++;
+        listings[listingCounter] = Listing({
+            listingId: listingCounter,
+            seller: msg.sender,
+            itemDescription: _itemDescription,
+            price: _price,
+            active: true
+        });
+
+        emit ItemListed(listingCounter, msg.sender, _itemDescription, _price);
+    }
+
+    function purchaseItem(uint256 _listingId) external payable {
+        Listing storage listing = listings[_listingId];
+        require(listing.active, "Listing is not active");
+        require(msg.value >= listing.price, "Insufficient payment sent");
+
+        listing.active = false;
+        payable(listing.seller).transfer(listing.price);
+
+        // Refund any excess payment
+        if (msg.value > listing.price) {
+            payable(msg.sender).transfer(msg.value - listing.price);
+        }
+
+        emit ItemPurchased(_listingId, msg.sender, listing.seller, listing.price);
+    }
+}
